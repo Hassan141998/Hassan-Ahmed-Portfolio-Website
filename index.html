@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hassan Ahmed | Data Scientist & Analyst</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Hassan Ahmed — Senior Data Scientist & Analyst with 5+ years of experience in SQL, Python, Power BI, Machine Learning and Statistical Analysis.">
+  <meta name="keywords" content="Data Scientist, Data Analyst, SQL, Python, Power BI, Machine Learning, Hassan Ahmed, Portfolio">
+  <meta name="author" content="Hassan Ahmed">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Hassan Ahmed | Data Scientist Portfolio">
+  <meta property="og:description" content="Senior Data Scientist & Analyst with 5+ years experience in SQL, Python, Power BI, and Machine Learning.">
+  <meta property="og:image" content="https://hassan-portfolio.vercel.app/images/og-image.png">
+  <meta property="og:url" content="https://hassan-portfolio.vercel.app">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hassan Ahmed | Data Scientist Portfolio">
+  <meta name="twitter:description" content="Senior Data Scientist & Analyst with 5+ years experience.">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hassan Ahmed",
+    "jobTitle": "Senior Data Scientist",
+    "url": "https://hassan-portfolio.vercel.app",
+    "sameAs": [
+      "https://github.com/Hassan141998",
+      "https://www.linkedin.com/in/hassan-ahmed-98304030a/"
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/devicons@1.8.0/css/devicons.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-theme="dark">
+
+  <!-- Loader -->
+  <div id="loader">
+    <div class="loader-inner">
+      <span class="loader-dot"></span>
+      <span class="loader-dot"></span>
+      <span class="loader-dot"></span>
+    </div>
+  </div>
+
+  <!-- Custom Cursor -->
+  <div id="cursor"></div>
+  <div id="cursor-follower"></div>
+
+  <!-- Navbar -->
+  <nav id="navbar">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo">HA<span class="dot">.</span></a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#resume" class="nav-link">Resume</a></li>
+        <li><a href="#certifications" class="nav-link">Certs</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button id="themeToggle" class="theme-btn" aria-label="Toggle theme">
+          <i class="fa-solid fa-moon" id="themeIcon"></i>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="hero-bg">
+      <div class="hero-bg-img"></div>
+      <div class="grid-overlay"></div>
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge reveal">Available for opportunities</div>
+      <h1 class="hero-name reveal">Hassan<br><span class="outline-text">Ahmed</span></h1>
+      <div class="hero-role reveal">
+        <span class="role-prefix">I am a </span>
+        <span id="typewriter" class="typewriter"></span>
+      </div>
+      <p class="hero-desc reveal">Senior Data Scientist & Analyst with 5+ years driving business strategies through data-driven insights. Based in Pakistan.</p>
+      <div class="hero-cta reveal">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="https://www.linkedin.com/in/hassan-ahmed-98304030a/" target="_blank" class="btn btn-outline">LinkedIn</a>
+      </div>
+      <div class="hero-stats reveal">
+        <div class="stat"><span class="stat-num" data-target="30">0</span><span>+</span><p>Projects</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="5">0</span><span>+</span><p>Years Exp.</p></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num" data-target="1000">0</span><span>+</span><p>Students</p></div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="section-tag reveal">Who I am</div>
+      <h2 class="section-title reveal">About <span class="accent">Me</span></h2>
+      <div class="about-grid">
+        <div class="about-image reveal">
+          <div class="img-frame">
+            <img src="images/about-me-dark.jpg" alt="Hassan Ahmed" onerror="this.src='images/about-me.jpg'">
+            <div class="img-decoration"></div>
+          </div>
+          <div class="about-card">
+            <div class="about-card-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>SadiqAbad, Pakistan</span>
+            </div>
+            <div class="about-card-item">
+              <i class="fa-solid fa-briefcase"></i>
+              <span>Open to Remote Work</span>
+            </div>
+            <div class="about-card-item">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span>BSc Computer Science</span>
+            </div>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <p class="about-lead">With over <strong>5 years of comprehensive experience</strong> in data science & analytics, I transform raw data into actionable business insights.</p>
+          <p>Proficient in data analysis, statistical analysis, hypothesis testing, customer behaviour analysis, and machine learning. Demonstrated success in leading impactful projects across Retail, Ecommerce, BFSI & Digital Marketing domains.</p>
+          <div class="about-details">
+            <div class="detail-row"><span class="detail-label">Role</span><span>Data Science & Analytics</span></div>
+            <div class="detail-row"><span class="detail-label">Domain</span><span>Retail, Ecommerce, BFSI & Digital Marketing</span></div>
+            <div class="detail-row"><span class="detail-label">BI Tools</span><span>Power BI, Looker, Tableau</span></div>
+            <div class="detail-row"><span class="detail-label">Other</span><span>Cloud, PySpark, Excel, Git, JIRA, GA</span></div>
+            <div class="detail-row"><span class="detail-label">Languages</span><span>English, Urdu</span></div>
+          </div>
+          <div class="about-actions">
+            <a href="YOUR_CV_LINK_HERE" download class="btn btn-primary" id="cvDownload">
+              <i class="fa-solid fa-download"></i> Download CV
+            </a>
+            <a href="#contact" class="btn btn-outline">Hire Me</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section id="skills" class="section section-alt">
+    <div class="container">
+      <div class="section-tag reveal">What I know</div>
+      <h2 class="section-title reveal">Technical <span class="accent">Skills</span></h2>
+
+      <div class="skills-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="data">Data</button>
+        <button class="filter-btn" data-filter="ml">ML / AI</button>
+        <button class="filter-btn" data-filter="tools">Tools & BI</button>
+        <button class="filter-btn" data-filter="cloud">Cloud</button>
+      </div>
+
+      <div class="skills-grid" id="skillsGrid">
+        <!-- Data Skills -->
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-icon"><i class="fa-solid fa-database"></i></div>
+          <h4>SQL</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
+          <span class="skill-pct">95%</span>
+        </div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-icon"><i class="fa-brands fa-python"></i></div>
+          <h4>Python</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-icon"><i class="fa-solid fa-chart-area"></i></div>
+          <h4>Data Visualization</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+          <span class="skill-pct">90%</span>
+        </div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-icon"><i class="fa-solid fa-calculator"></i></div>
+          <h4>Statistical Analysis</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-icon"><i class="fa-solid fa-table"></i></div>
+          <h4>Excel / Sheets</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
+          <span class="skill-pct">90%</span>
+        </div>
+        <!-- ML Skills -->
+        <div class="skill-card reveal" data-category="ml">
+          <div class="skill-icon"><i class="fa-solid fa-robot"></i></div>
+          <h4>Machine Learning</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-card reveal" data-category="ml">
+          <div class="skill-icon"><i class="fa-solid fa-brain"></i></div>
+          <h4>Deep Learning</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+          <span class="skill-pct">70%</span>
+        </div>
+        <div class="skill-card reveal" data-category="ml">
+          <div class="skill-icon"><i class="fa-solid fa-timeline"></i></div>
+          <h4>Time Series</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-card reveal" data-category="ml">
+          <div class="skill-icon"><i class="fa-solid fa-code-branch"></i></div>
+          <h4>A/B Testing</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
+          <span class="skill-pct">88%</span>
+        </div>
+        <!-- Tools & BI -->
+        <div class="skill-card reveal" data-category="tools">
+          <div class="skill-icon"><i class="fa-solid fa-chart-pie"></i></div>
+          <h4>Power BI</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
+          <span class="skill-pct">92%</span>
+        </div>
+        <div class="skill-card reveal" data-category="tools">
+          <div class="skill-icon"><i class="fa-solid fa-chart-column"></i></div>
+          <h4>Tableau</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
+          <span class="skill-pct">80%</span>
+        </div>
+        <div class="skill-card reveal" data-category="tools">
+          <div class="skill-icon"><i class="fa-brands fa-git-alt"></i></div>
+          <h4>Git / GitHub</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
+          <span class="skill-pct">85%</span>
+        </div>
+        <div class="skill-card reveal" data-category="tools">
+          <div class="skill-icon"><i class="fa-brands fa-google"></i></div>
+          <h4>Google Analytics</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="82"></div></div>
+          <span class="skill-pct">82%</span>
+        </div>
+        <!-- Cloud -->
+        <div class="skill-card reveal" data-category="cloud">
+          <div class="skill-icon"><i class="fa-brands fa-aws"></i></div>
+          <h4>AWS</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="70"></div></div>
+          <span class="skill-pct">70%</span>
+        </div>
+        <div class="skill-card reveal" data-category="cloud">
+          <div class="skill-icon"><i class="fa-solid fa-fire"></i></div>
+          <h4>PySpark</h4>
+          <div class="skill-bar"><div class="skill-fill" data-width="75"></div></div>
+          <span class="skill-pct">75%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="section-tag reveal">What I've built</div>
+      <h2 class="section-title reveal">GitHub <span class="accent">Projects</span></h2>
+      <p class="section-desc reveal">Live data fetched from GitHub API — always up to date.</p>
+
+      <div class="projects-filter reveal">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="python">Python</button>
+        <button class="filter-btn" data-filter="jupyter notebook">Jupyter</button>
+        <button class="filter-btn" data-filter="sql">SQL</button>
+        <button class="filter-btn" data-filter="r">R</button>
+      </div>
+
+      <div class="github-stats reveal" id="githubStats">
+        <div class="gh-stat">
+          <i class="fa-solid fa-code-commit"></i>
+          <span id="ghRepos">—</span>
+          <p>Repositories</p>
+        </div>
+        <div class="gh-stat">
+          <i class="fa-solid fa-star"></i>
+          <span id="ghStars">—</span>
+          <p>Total Stars</p>
+        </div>
+        <div class="gh-stat">
+          <i class="fa-solid fa-code-fork"></i>
+          <span id="ghForks">—</span>
+          <p>Total Forks</p>
+        </div>
+        <div class="gh-stat">
+          <i class="fa-solid fa-users"></i>
+          <span id="ghFollowers">—</span>
+          <p>Followers</p>
+        </div>
+      </div>
+
+      <div class="projects-grid" id="projectsGrid">
+        <div class="projects-loading">
+          <div class="loading-spinner"></div>
+          <p>Fetching projects from GitHub...</p>
+        </div>
+      </div>
+
+      <div class="projects-footer reveal">
+        <a href="https://github.com/Hassan141998" target="_blank" class="btn btn-outline">
+          <i class="fa-brands fa-github"></i> View All on GitHub
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Resume / Experience -->
+  <section id="resume" class="section section-alt">
+    <div class="container">
+      <div class="section-tag reveal">My journey</div>
+      <h2 class="section-title reveal">Experience & <span class="accent">Education</span></h2>
+
+      <div class="resume-grid">
+        <div class="resume-col">
+          <h3 class="resume-col-title reveal"><i class="fa-solid fa-briefcase"></i> Work Experience</h3>
+          <div class="timeline">
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2021 — Present</span>
+                <h4>Senior Data Analyst</h4>
+                <p class="timeline-company">Merkle <span class="badge-company">Dentsu International</span></p>
+                <ul>
+                  <li>Analysed ad campaigns, clickstream, and customer surveys data, identified increasing demand and launched a strategic product line.</li>
+                  <li>Developed time series forecasting models to predict sales and optimize marketing budgets — 92% model performance.</li>
+                  <li>Designed and executed A/B tests with rigorous statistical analysis. Led to 20% MoM increase in conversion rate.</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2018 — 2021</span>
+                <h4>Senior Data Analyst</h4>
+                <p class="timeline-company">iQuanti <span class="badge-company">Digital Marketing Analytics</span></p>
+                <ul>
+                  <li>Performed in-depth market research and analysis — ~100% website growth and 30% YoY conversion rate increase.</li>
+                  <li>Delivered training sessions on SQL, MS Excel, Power BI, Tableau, and Python.</li>
+                  <li>Performed migration and enhancements for merchandising dashboard with data integration improvements.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="resume-col">
+          <h3 class="resume-col-title reveal"><i class="fa-solid fa-graduation-cap"></i> Education</h3>
+          <div class="timeline">
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2018 — 2022</span>
+                <h4>Bachelor of Computer Science</h4>
+                <p class="timeline-company">Islamia University of Bahawalpur</p>
+                <p>First class distinction. Specialization in Data Science and Artificial Intelligence.</p>
+              </div>
+            </div>
+            <div class="timeline-item reveal">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                <span class="timeline-date">2012 — 2013</span>
+                <h4>Higher Secondary School</h4>
+                <p class="timeline-company">Iqra Public School</p>
+                <p>First class distinction. Pre-Engineering.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="cv-cta reveal">
+            <p>Want the full picture?</p>
+            <a href="YOUR_CV_LINK_HERE" download class="btn btn-primary" id="cvDownload2">
+              <i class="fa-solid fa-file-pdf"></i> Download Full CV
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section id="certifications" class="section">
+    <div class="container">
+      <div class="section-tag reveal">Credentials</div>
+      <h2 class="section-title reveal">Certifica<span class="accent">tions</span></h2>
+      <p class="section-desc reveal">Professional certifications and courses completed.</p>
+
+      <div class="certs-grid">
+        <div class="cert-card reveal">
+          <div class="cert-logo google">
+            <i class="fa-brands fa-google"></i>
+          </div>
+          <div class="cert-info">
+            <h4>Google Data Analytics</h4>
+            <p>Google / Coursera</p>
+            <span class="cert-year">2023</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-logo microsoft">
+            <i class="fa-brands fa-microsoft"></i>
+          </div>
+          <div class="cert-info">
+            <h4>Power BI Data Analyst</h4>
+            <p>Microsoft</p>
+            <span class="cert-year">2022</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-logo coursera">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="cert-info">
+            <h4>Machine Learning Specialization</h4>
+            <p>Stanford / Coursera</p>
+            <span class="cert-year">2022</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-logo aws">
+            <i class="fa-brands fa-aws"></i>
+          </div>
+          <div class="cert-info">
+            <h4>AWS Cloud Practitioner</h4>
+            <p>Amazon Web Services</p>
+            <span class="cert-year">2023</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-logo ibm">
+            <i class="fa-solid fa-cube"></i>
+          </div>
+          <div class="cert-info">
+            <h4>IBM Data Science Professional</h4>
+            <p>IBM / Coursera</p>
+            <span class="cert-year">2021</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+        <div class="cert-card reveal">
+          <div class="cert-logo meta">
+            <i class="fa-brands fa-meta"></i>
+          </div>
+          <div class="cert-info">
+            <h4>Meta Marketing Analytics</h4>
+            <p>Meta / Coursera</p>
+            <span class="cert-year">2023</span>
+          </div>
+          <a href="#" target="_blank" class="cert-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section section-alt">
+    <div class="container">
+      <div class="section-tag reveal">Get in touch</div>
+      <h2 class="section-title reveal">Contact <span class="accent">Me</span></h2>
+      <p class="section-desc reveal">Have a project in mind or want to collaborate? Let's talk.</p>
+
+      <div class="contact-grid">
+        <div class="contact-info reveal">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <h4>Location</h4>
+              <p>SadiqAbad, Punjab, Pakistan</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+            <div>
+              <h4>Email</h4>
+              <p><a href="mailto:your.email@gmail.com">your.email@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
+            <div>
+              <h4>Phone</h4>
+              <p><a href="tel:+923001234567">+92 300 1234567</a></p>
+            </div>
+          </div>
+          <div class="contact-socials">
+            <a href="https://github.com/Hassan141998" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/hassan-ahmed-98304030a/" target="_blank" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a href="https://wa.me/923001234567" target="_blank" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://twitter.com/YOUR_HANDLE" target="_blank" aria-label="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="https://youtube.com/YOUR_CHANNEL" target="_blank" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <form class="contact-form reveal" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Project Collaboration" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+            <span>Send Message</span>
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+          <div id="formMessage" class="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <a href="#home" class="footer-logo">HA<span class="dot">.</span></a>
+        <p>Data Scientist & Analyst turning data into decisions.</p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; <span id="year"></span> Hassan Ahmed. Crafted with <i class="fa-solid fa-heart"></i> and data.</p>
+        <a href="#home" class="back-to-top" id="backToTop"><i class="fa-solid fa-arrow-up"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+</body>
+</html>

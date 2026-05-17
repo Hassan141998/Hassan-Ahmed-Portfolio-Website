@@ -1,0 +1,9 @@
+Replace these image files:
+
+1. about-me.jpg    — Your professional photo (400x500px portrait)
+2. og-image.png    — Social share image (1200x630px, create on canva.com)
+
+Tips:
+- Use a professional headshot for about-me.jpg
+- For og-image.png: Add your name, title, and a simple background
+- Keep file sizes under 200KB for fast loading
