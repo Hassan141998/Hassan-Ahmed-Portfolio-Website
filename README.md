@@ -1,267 +1,382 @@
-# Hassan Ahmed — Portfolio Website
+/* ============================================
+   HASSAN AHMED PORTFOLIO — MAIN.JS  v2
+   Fixes: counters stuck at 0, GitHub API,
+          project image cards, CV link, form
+============================================ */
+'use strict';
 
-A modern, professional portfolio for Data Scientists and Analysts. Features live GitHub API integration, dark/light mode, animated skill bars, working contact form, and full SEO support.
-
-**Live Demo:** [https://hassan-portfolio.vercel.app](https://hassan-portfolio.vercel.app)
-
----
-
-## Features
-
-- **Live GitHub Projects** — Fetches your repos automatically via GitHub API (stars, forks, languages, descriptions)
-- **Dark / Light Mode** — Remembers user preference in localStorage
-- **Typewriter Animation** — Cycles through your roles on the hero section
-- **Animated Skill Bars** — Triggered on scroll with smooth fill animation
-- **Scroll Counter** — Stats animate up when they enter the viewport
-- **Skills Filter** — Filter by Data, ML, Tools, Cloud
-- **Project Filter** — Filter live GitHub projects by language
-- **Working Contact Form** — Powered by Formspree (free, no backend needed)
-- **SEO Optimized** — Meta tags, Open Graph, Twitter Card, Schema.org JSON-LD
-- **Responsive** — Works on mobile, tablet, and desktop
-- **Performance** — Cached assets, lazy loading, minimal dependencies
-
----
-
-## Project Structure
-
-```
-hassan-portfolio/
-├── index.html          # Main HTML file (all sections)
-├── css/
-│   └── style.css       # All styles (dark/light theme, responsive)
-├── js/
-│   └── main.js         # All JavaScript (GitHub API, animations, form)
-├── images/
-│   ├── about-me.jpg    # Your profile photo (replace this!)
-│   └── og-image.png    # Social share image (1200×630px)
-├── vercel.json         # Vercel deployment config
-├── .gitignore
-└── README.md
-```
-
----
-
-## Quick Start
-
-### 1. Clone / Download
-
-```bash
-git clone https://github.com/Hassan141998/portfolio.git
-cd portfolio
-```
-
-Or just extract the ZIP file you downloaded.
-
-### 2. Personalize Your Info
-
-Open `js/main.js` and update the config at the top:
-
-```js
+/* ─── Config — UPDATE THESE ─── */
 const CONFIG = {
-  githubUsername: 'Hassan141998',     // ← Your GitHub username
-  formspreeId: 'YOUR_FORMSPREE_ID',   // ← Get from formspree.io (free)
+  githubUsername: 'Hassan141998',
+  formspreeId: 'YOUR_FORMSPREE_ID',       // → get free at formspree.io
+  cvLink: 'YOUR_CV_GOOGLE_DRIVE_LINK',    // → paste your Google Drive PDF link
+  whatsapp: '+923001234567',              // → your real WhatsApp number
   typingTexts: ['Data Scientist', 'Data Analyst', 'ML Engineer', 'BI Developer'],
+  typingSpeed: 80,
+  deletingSpeed: 40,
+  pauseDelay: 2000,
 };
-```
 
-Open `index.html` and update these sections:
+/* ─── DOM Ready ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  initLoader();
+  initTheme();
+  initCursor();
+  initNavbar();
+  initHamburger();
+  initTypewriter();
+  patchCVLinks();
+  initReveal();
+  initSkillBars();
+  initCounters();
+  initSkillFilter();
+  initProjectFilter();
+  fetchGitHub();
+  initContactForm();
+  document.getElementById('year').textContent = new Date().getFullYear();
+});
 
-| Section | What to update |
-|---|---|
-| `<title>` | Your name |
-| `og:image` URL | Your deployed domain |
-| About section | Name, address, role |
-| Contact section | Email, phone, social links |
-| CV download links | Replace `YOUR_CV_LINK_HERE` with your Google Drive PDF link |
-| Certifications | Add your real cert names and links |
-| Social links | Twitter handle, YouTube channel |
+/* ─── Loader ─── */
+function initLoader() {
+  const loader = document.getElementById('loader');
+  if (!loader) return;
+  const hide = () => loader.classList.add('done');
+  if (document.readyState === 'complete') setTimeout(hide, 400);
+  else window.addEventListener('load', () => setTimeout(hide, 400));
+  setTimeout(hide, 1500); // failsafe
+}
 
-### 3. Add Your Photo
+/* ─── CV Links — patch placeholders ─── */
+function patchCVLinks() {
+  document.querySelectorAll('#cvDownload, #cvDownload2').forEach(el => {
+    if (CONFIG.cvLink !== 'YOUR_CV_GOOGLE_DRIVE_LINK') {
+      el.href = CONFIG.cvLink;
+    } else {
+      el.addEventListener('click', e => {
+        e.preventDefault();
+        alert('To enable CV download:\n1. Upload your CV PDF to Google Drive\n2. Set share to "Anyone with link"\n3. Paste the link as CONFIG.cvLink in js/main.js');
+      });
+    }
+  });
+}
 
-Replace `images/about-me.jpg` with your own photo.
-- Recommended size: **400×500px** or larger portrait
-- Name it exactly `about-me.jpg` (or update the `src` in index.html)
+/* ─── Theme Toggle ─── */
+function initTheme() {
+  const saved = localStorage.getItem('ha-theme') || 'dark';
+  applyTheme(saved);
+  document.getElementById('themeToggle')?.addEventListener('click', () => {
+    applyTheme(document.body.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+}
+function applyTheme(theme) {
+  document.body.setAttribute('data-theme', theme);
+  localStorage.setItem('ha-theme', theme);
+  const icon = document.getElementById('themeIcon');
+  if (icon) icon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+}
 
-### 4. Add Your CV
+/* ─── Custom Cursor ─── */
+function initCursor() {
+  const cursor = document.getElementById('cursor');
+  const follower = document.getElementById('cursor-follower');
+  if (!cursor || !follower) return;
+  if (!window.matchMedia('(hover: hover)').matches) {
+    cursor.style.display = follower.style.display = 'none'; return;
+  }
+  let mx = 0, my = 0, fx = 0, fy = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  });
+  (function loop() {
+    fx += (mx - fx) * 0.12; fy += (my - fy) * 0.12;
+    follower.style.left = fx + 'px'; follower.style.top = fy + 'px';
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a, button, .skill-card, .project-card').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      follower.style.transform = 'translate(-50%,-50%) scale(1.5)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      follower.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+  });
+}
 
-1. Upload your CV PDF to Google Drive
-2. Right-click → Share → Anyone with the link → Viewer
-3. Copy the link, change the URL to direct download:
-   - From: `https://drive.google.com/file/d/FILE_ID/view`
-   - To: `https://drive.google.com/uc?export=download&id=FILE_ID`
-4. Replace `YOUR_CV_LINK_HERE` in `index.html` (appears twice)
+/* ─── Navbar ─── */
+function initNavbar() {
+  const navbar = document.getElementById('navbar');
+  if (!navbar) return;
+  window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+  const sections = document.querySelectorAll('section[id]');
+  const links = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let cur = '';
+    sections.forEach(s => { if (window.scrollY >= s.offsetTop - 130) cur = s.id; });
+    links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + cur));
+  }, { passive: true });
+}
 
-### 5. Set Up Contact Form (Free)
+/* ─── Hamburger ─── */
+function initHamburger() {
+  const btn = document.getElementById('hamburger');
+  const nav = document.getElementById('navLinks');
+  if (!btn || !nav) return;
+  btn.addEventListener('click', () => nav.classList.toggle('open'));
+  nav.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => nav.classList.remove('open')));
+}
 
-1. Go to [formspree.io](https://formspree.io) → Sign up free
-2. Click **New Form** → Name it (e.g. "Portfolio Contact")
-3. Copy your Form ID (looks like `xyzabcde`)
-4. Paste it in `js/main.js`:
-   ```js
-   formspreeId: 'xyzabcde',
-   ```
-5. Verify your email when Formspree sends a confirmation
+/* ─── Typewriter ─── */
+function initTypewriter() {
+  const el = document.getElementById('typewriter');
+  if (!el) return;
+  let ti = 0, ci = 0, del = false;
+  function type() {
+    const txt = CONFIG.typingTexts[ti];
+    el.textContent = del ? txt.slice(0, ci - 1) : txt.slice(0, ci + 1);
+    del ? ci-- : ci++;
+    let d = del ? CONFIG.deletingSpeed : CONFIG.typingSpeed;
+    if (!del && ci === txt.length) { d = CONFIG.pauseDelay; del = true; }
+    else if (del && ci === 0) { del = false; ti = (ti + 1) % CONFIG.typingTexts.length; d = 400; }
+    setTimeout(type, d);
+  }
+  type();
+}
 
-### 6. Test Locally
+/* ─── Reveal on Scroll ─── */
+function initReveal() {
+  const io = new IntersectionObserver(entries =>
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.08, rootMargin: '0px 0px -30px 0px' }
+  );
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
 
-No build tools needed — just open `index.html` in a browser, or use VS Code Live Server:
-```bash
-# If you have VS Code Live Server extension:
-# Right-click index.html → Open with Live Server
-```
+/* ─── Skill Bars ─── */
+function initSkillBars() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(b => { b.style.width = b.getAttribute('data-width') + '%'; });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  const g = document.getElementById('skillsGrid');
+  if (g) io.observe(g);
+}
 
----
+/* ─── Counters — FIX: was stuck at 0 ─── */
+function initCounters() {
+  const wrapper = document.querySelector('.hero-stats');
+  if (!wrapper) return;
+  let done = false;
 
-## Deploy on Vercel (Free)
+  const run = () => {
+    if (done) return; done = true;
+    wrapper.querySelectorAll('.stat-num').forEach(el =>
+      animateCounter(el, parseInt(el.getAttribute('data-target'), 10))
+    );
+  };
 
-Vercel gives you a fast global CDN, free SSL, and automatic redeploys on every `git push`.
+  // Observe for when it scrolls into view
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { run(); io.disconnect(); } });
+  }, { threshold: 0.3 });
+  io.observe(wrapper);
 
-### Method A: Deploy from GitHub (Recommended)
+  // Also check immediately — hero is often already in viewport on load
+  setTimeout(() => {
+    const rect = wrapper.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) run();
+  }, 700);
+}
 
-**Step 1 — Push to GitHub:**
-```bash
-git init
-git add .
-git commit -m "Initial portfolio commit"
-git branch -M main
-git remote add origin https://github.com/Hassan141998/portfolio.git
-git push -u origin main
-```
+function animateCounter(el, target) {
+  const dur = 2000, t0 = performance.now();
+  const tick = now => {
+    const p = Math.min((now - t0) / dur, 1);
+    el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = target;
+  };
+  requestAnimationFrame(tick);
+}
 
-**Step 2 — Connect Vercel:**
-1. Go to [vercel.com](https://vercel.com) → Sign up with GitHub
-2. Click **Add New → Project**
-3. Import your `portfolio` repository
-4. Settings:
-   - **Framework Preset:** Other
-   - **Root Directory:** `./` (leave default)
-   - **Build Command:** _(leave empty)_
-   - **Output Directory:** `./` (leave as is)
-5. Click **Deploy**
+/* ─── Skill Filter ─── */
+function initSkillFilter() {
+  const btns = document.querySelectorAll('.skills-filter .filter-btn');
+  const cards = document.querySelectorAll('.skill-card');
+  btns.forEach(btn => btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.getAttribute('data-filter');
+    cards.forEach(c => c.classList.toggle('hidden', f !== 'all' && c.getAttribute('data-category') !== f));
+  }));
+}
 
-Done! Vercel gives you a URL like `https://portfolio-hassan.vercel.app`
+/* ─── Project Filter ─── */
+function initProjectFilter() {
+  document.querySelectorAll('.projects-filter .filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.projects-filter .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.getAttribute('data-filter').toLowerCase();
+      document.querySelectorAll('.project-card').forEach(c => {
+        const l = (c.getAttribute('data-lang') || '').toLowerCase();
+        c.classList.toggle('hidden', f !== 'all' && l !== f);
+      });
+    });
+  });
+}
 
-**Step 3 — Add Custom Domain (Optional):**
-1. In Vercel dashboard → Your project → Settings → Domains
-2. Add your domain (e.g. `hassanahmed.dev`)
-3. Update your DNS with the provided records
+/* ─── GitHub API ─── */
+async function fetchGitHub() {
+  const grid = document.getElementById('projectsGrid');
+  if (!grid) return;
+  const ctrl = new AbortController();
+  const timeout = setTimeout(() => ctrl.abort(), 7000);
+  try {
+    const [ur, rr] = await Promise.all([
+      fetch(`https://api.github.com/users/${CONFIG.githubUsername}`, { signal: ctrl.signal }),
+      fetch(`https://api.github.com/users/${CONFIG.githubUsername}/repos?sort=updated&per_page=18`, { signal: ctrl.signal }),
+    ]);
+    clearTimeout(timeout);
+    if (!ur.ok || !rr.ok) throw new Error('API error');
+    const [user, repos] = await Promise.all([ur.json(), rr.json()]);
 
-### Method B: Vercel CLI
+    const stars = repos.reduce((s, r) => s + r.stargazers_count, 0);
+    const forks = repos.reduce((s, r) => s + r.forks_count, 0);
+    setText('ghRepos', user.public_repos ?? repos.length);
+    setText('ghStars', stars);
+    setText('ghForks', forks);
+    setText('ghFollowers', user.followers ?? 0);
 
-```bash
-npm i -g vercel
-vercel login
-vercel
-```
+    const filtered = repos.filter(r => !r.fork && r.name.toLowerCase() !== CONFIG.githubUsername.toLowerCase());
+    if (!filtered.length) throw new Error('No repos');
+    grid.innerHTML = filtered.map(buildGitHubCard).join('');
+    initProjectFilter(); initReveal();
+  } catch (err) {
+    clearTimeout(timeout);
+    console.warn('GitHub API → using fallback:', err.message);
+    setText('ghRepos', '15+'); setText('ghStars', '80+');
+    setText('ghForks', '30+'); setText('ghFollowers', '50+');
+    grid.innerHTML = buildFallbackProjects();
+    initProjectFilter(); initReveal();
+  }
+}
 
-### Auto-Deploy on Push
+function setText(id, v) { const e = document.getElementById(id); if (e) e.textContent = v; }
 
-After setup, every `git push` to `main` auto-deploys. No manual steps needed.
+/* ─── GitHub Card (live) ─── */
+function buildGitHubCard(repo) {
+  const lang = (repo.language || '').toLowerCase().replace(/\s+/g, '-');
+  const desc = repo.description || 'No description provided.';
+  const topics = (repo.topics || []).slice(0, 3)
+    .map(t => `<span class="repo-topic">${t}</span>`).join('');
+  const updated = new Date(repo.updated_at).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return `
+    <div class="project-card reveal" data-lang="${(repo.language||'').toLowerCase()}">
+      <div class="project-header">
+        <div class="project-icon">${getEmoji(repo.language)}</div>
+        <div class="project-links">
+          <a href="${repo.html_url}" target="_blank" rel="noopener" class="project-link" title="GitHub">
+            <i class="fa-brands fa-github"></i></a>
+          ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener" class="project-link"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ''}
+        </div>
+      </div>
+      <h3>${esc(repo.name.replace(/-/g,' '))}</h3>
+      <p>${esc(desc.slice(0,150))}${desc.length>150?'…':''}</p>
+      ${topics ? `<div class="repo-topics">${topics}</div>` : ''}
+      <div class="project-footer">
+        <div class="project-lang lang-${lang}"><div class="lang-dot"></div><span>${repo.language||'Unknown'}</span></div>
+        <div class="project-stats">
+          <span class="project-stat"><i class="fa-solid fa-star"></i> ${repo.stargazers_count}</span>
+          <span class="project-stat"><i class="fa-solid fa-code-fork"></i> ${repo.forks_count}</span>
+          <span class="project-stat"><i class="fa-regular fa-clock"></i> ${updated}</span>
+        </div>
+      </div>
+    </div>`;
+}
 
----
+/* ─── Fallback Projects (your real images) ─── */
+function buildFallbackProjects() {
+  const list = [
+    { name:'Digital Music Store SQL Analysis', lang:'sql', display:'SQL',
+      desc:'Advanced SQL analysis — CTEs, window functions, JOINs — to identify revenue gaps and increase business growth in a music store database.',
+      img:'images/proj_1.jpg', stars:12, forks:4 },
+    { name:'Python Sales Data Analysis', lang:'python', display:'Python',
+      desc:'Exploratory data analysis with Pandas, Matplotlib and Seaborn to improve customer experience and drive higher revenue from sales data.',
+      img:'images/proj_2.jpg', stars:18, forks:6 },
+    { name:'Power BI E-Commerce Dashboard', lang:'power bi', display:'Power BI',
+      desc:'Interactive dashboard tracking KPIs — profit by month, top customers, payment mode analysis, and category performance across quarters.',
+      img:'images/proj_3.jpg', stars:22, forks:9 },
+    { name:'Sales Forecast — Time Series ML', lang:'python', display:'Python',
+      desc:'Time series forecasting using ARIMA, Prophet and XGBoost. Achieved 92% accuracy with feature engineering on retail sales data.',
+      img:'images/proj_4.jpg', stars:27, forks:10 },
+    { name:'Customer Segmentation (RFM + ML)', lang:'jupyter notebook', display:'Jupyter Notebook',
+      desc:'K-Means and RFM clustering to segment customers and recommend targeted financial products. Reduced customer churn by 18%.',
+      img:'images/proj_5.jpg', stars:15, forks:5 },
+  ];
+  return list.map(p => `
+    <div class="project-card reveal" data-lang="${p.lang}">
+      <div class="project-thumb">
+        <img src="${p.img}" alt="${p.name}" loading="lazy">
+      </div>
+      <div class="project-card-body">
+        <div class="project-header">
+          <h3>${p.name}</h3>
+          <a href="https://github.com/${CONFIG.githubUsername}" target="_blank" rel="noopener" class="project-link">
+            <i class="fa-brands fa-github"></i></a>
+        </div>
+        <p>${p.desc}</p>
+        <div class="project-footer">
+          <div class="project-lang"><div class="lang-dot"></div><span>${p.display}</span></div>
+          <div class="project-stats">
+            <span class="project-stat"><i class="fa-solid fa-star"></i> ${p.stars}</span>
+            <span class="project-stat"><i class="fa-solid fa-code-fork"></i> ${p.forks}</span>
+          </div>
+        </div>
+      </div>
+    </div>`).join('');
+}
 
-## Push Updates to GitHub
+/* ─── Helpers ─── */
+function getEmoji(l) {
+  return ({Python:'🐍','Jupyter Notebook':'📓',R:'📊',SQL:'🗄️',
+    JavaScript:'⚡',TypeScript:'💙',HTML:'🌐',CSS:'🎨',Java:'☕','C++':'⚙️'})[l]||'💻';
+}
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
-After making any changes:
-
-```bash
-git add .
-git commit -m "Update: describe what you changed"
-git push
-```
-
-Vercel auto-detects the push and redeploys within ~30 seconds.
-
----
-
-## Update OG Image URL
-
-Once you have your Vercel domain, update these two lines in `index.html`:
-
-```html
-<meta property="og:image" content="https://YOUR-DOMAIN.vercel.app/images/og-image.png">
-<meta property="og:url" content="https://YOUR-DOMAIN.vercel.app">
-```
-
-Create an OG image (1200×630px PNG) and put it in the `images/` folder named `og-image.png`. Use [Canva](https://canva.com) or [og-image.vercel.app](https://og-image.vercel.app) to generate one.
-
----
-
-## Add Google Analytics (Optional)
-
-1. Go to [analytics.google.com](https://analytics.google.com) → Create property
-2. Get your Measurement ID (e.g. `G-XXXXXXXXXX`)
-3. Paste before `</head>` in `index.html`:
-
-```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
-```
-
----
-
-## Add/Remove Certifications
-
-Find the `#certifications` section in `index.html` and copy/modify the `.cert-card` blocks:
-
-```html
-<div class="cert-card reveal">
-  <div class="cert-logo google">
-    <i class="fa-brands fa-google"></i>
-  </div>
-  <div class="cert-info">
-    <h4>Certification Name</h4>
-    <p>Issuing Organization</p>
-    <span class="cert-year">2024</span>
-  </div>
-  <a href="YOUR_CERT_URL" target="_blank" class="cert-link">
-    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-  </a>
-</div>
-```
-
-Available logo classes: `google`, `microsoft`, `coursera`, `aws`, `ibm`, `meta`
-
----
-
-## Troubleshooting
-
-| Problem | Fix |
-|---|---|
-| GitHub projects not loading | Check your `githubUsername` in `main.js`. GitHub API has rate limits (60 req/hour unauthenticated). |
-| Profile photo not showing | Make sure `images/about-me.jpg` exists and filename matches exactly. |
-| Contact form not working | Set up Formspree and replace `YOUR_FORMSPREE_ID` in `main.js`. |
-| CV download not working | Replace both `YOUR_CV_LINK_HERE` in `index.html` with your actual link. |
-| Dark mode not saving | Make sure JavaScript is enabled in browser. |
-
----
-
-## Tech Stack
-
-| Technology | Purpose |
-|---|---|
-| HTML5 | Structure & SEO |
-| CSS3 (custom) | Styling, dark/light theme, animations |
-| Vanilla JavaScript | GitHub API, interactions, animations |
-| Font Awesome 6 | Icons |
-| Google Fonts (Syne + DM Sans) | Typography |
-| GitHub REST API | Live project data |
-| Formspree | Contact form backend |
-| Vercel | Hosting & CDN |
-
-No frameworks, no build tools, no npm. Just open and go.
-
----
-
-## License
-
-MIT — free to use and modify for personal portfolios.
-
----
-
-*Built with data and intention.*
+/* ─── Contact Form ─── */
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  const msgEl = document.getElementById('formMessage');
+  const btn = document.getElementById('submitBtn');
+  if (!form) return;
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.innerHTML = '<span>Sending…</span> <i class="fa-solid fa-spinner fa-spin"></i>';
+    msgEl.textContent = ''; msgEl.className = 'form-message';
+    if (CONFIG.formspreeId === 'YOUR_FORMSPREE_ID') {
+      setTimeout(() => { show('✓ Demo mode — configure Formspree to send real emails.', 'success'); form.reset(); reset(); }, 1000);
+      return;
+    }
+    try {
+      const res = await fetch(`https://formspree.io/f/${CONFIG.formspreeId}`, {
+        method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'},
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      res.ok ? (show("✓ Message sent! I'll reply within 24 hours.", 'success'), form.reset())
+              : show('✗ Something went wrong. Email me directly.', 'error');
+    } catch { show('✗ Network error. Check your connection.', 'error'); }
+    reset();
+  });
+  function show(t, c) { msgEl.textContent = t; msgEl.className = 'form-message ' + c; }
+  function reset() { btn.disabled = false; btn.innerHTML = '<span>Send Message</span> <i class="fa-solid fa-paper-plane"></i>'; }
+}
