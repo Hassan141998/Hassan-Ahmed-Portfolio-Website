@@ -774,6 +774,14 @@ img { max-width: 100%; display: block; }
   color: var(--accent); border-color: var(--border2);
 }
 
+/* ── Repo Topics ── */
+.repo-topics { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.25rem; }
+.repo-topic {
+  font-size: 0.7rem; padding: 0.15rem 0.6rem;
+  border-radius: 50px; border: 1px solid var(--border);
+  color: var(--text3); background: var(--surface2);
+}
+
 /* ── Language colors (GitHub) ── */
 .lang-python .lang-dot { background: #3572A5; }
 .lang-r .lang-dot { background: #198CE7; }
